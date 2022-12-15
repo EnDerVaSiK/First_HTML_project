@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        function checkForm(el){
+            console.log("Some phrase");
+            let name = document.getElementById("name").value;
+            console.log(name);
+            let tel = document.getElementById("number").value;
+            let email = document.getElementById("adress").value;
+            let out = name + " " + email + " " + tel;
+            let fail = false;
+            if(name=="" || name==" ") {
+                fail = "Введите имя!"
+                if(fail){
+                    alert(fail);
+                }
+            }
+            else if(name.length <= 2 || name.length > 50){
+                fail = "Введите корректное имя!"
+                if(fail){
+                    alert(fail);
+                }
+            }
+
+            if (document.getElementById("post").checked) {
+                if(email=="" || email==" ") {
+                    fail = "Введите email!"
+                    if(fail){
+                        alert(fail);
+                    }
+                }
+                else if(email.length <= 6 || name.length > 50){
+                    fail = "Введите корректный email!"
+                    if(fail){
+                        alert(fail);
+                    }
+                }
+            }
+
+            if (document.getElementById("tel").checked) {
+                if(tel=="" || tel==" ") {
+                    fail = "Введите телефон!"
+                    if(fail){
+                        alert(fail);
+                    }
+                }
+                else if(tel.length <= 2 || tel.length > 12){
+                    fail = "Введите корректный телефон!"
+                    if(fail){
+                        alert(fail);
+                    }
+                }
+            }
+
+            if(fail == ""){
+                document.getElementById('output').innerText = out;
+            } else {
+                document.getElementById('error').innerHTML = fail;
+            } 
+        }
+    </script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/style.css">
+    <title>Document</title>
+</head>
+<body class="body">
+    <header class="header">
+        <div class="menu">
+            <div class="header__logo">
+                <img src="../images/logo_goose.jpg" alt="логотип" width="120px">
+            </div>
+            <nav class="nav__menu">
+                <ul>
+                    <li><a href="../index.html">О себе</a></li>
+                    <li><a href="../index.html#comp">Что я умею</a></li>
+                    <li><a href="../pages/resume.html">Резюме</a></li>
+                    <li><a href="../pages/portfolio.html">Мои работы</a></li>
+                    <li><a href="../pages/contacts.html">Контакты</a></li>
+                    <li><a href="../pages/JS.html">JS</a></li>
+                    <li><a href="../pages/new_year.html">До Нового Года осталось..</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="title">
+            <h1>Web-технологии</h1>
+            <h2>Университет "Дубна"</h2>
+        </div>
+    </header>
+    <main>
+        
+        <section>
+            <div>Выберете тему:</div>
+            <select name="" id="theme">
+                <option value="auto">По умолчанию</option>
+                <option value="dark">Темная тема</option>
+                <option value="light">Светлая тема</option>
+            </select>
+            <script>
+            function applyTheme(theme){
+                document.body.classList.remove("theme-auto", "theme-light", "theme-dark");
+                document.body.classList.add(`theme-${theme}`);
+            }
+            document.addEventListener("DOMContentLoaded", ()=>{
+                document.querySelector("#theme").addEventListener("change", function(){applyTheme(this.value);});});
+            document.addEventListener("DOMContentLoaded", () => {
+                const savedTheme = localStorage.getItem("theme") || "auto";
+                applyTheme(savedTheme);
+                for (const optionElement of document.querySelectorAll("#theme option")){
+                    optionElement.selected = savedTheme === optionElement.value;
+                }
+                document.querySelector("#theme").addEventListener("change", function(){
+                localStorage.setItem("theme", this.value);
+                applyTheme (this.value);})
+            })
+            </script>
+        </section>
+
+
+        <div class="grid">
+            <section class="items1">
+                <form action="" method="get" id="form1">
+                    <fieldset class="form-div" id="connection1">
+                        <legend> Как Вам удобно получить ответ:</legend>
+                        <label for="">
+                            <input type="radio" name="connection" id="post" value="по почте">
+                            По почте
+                        </label>
+                        <br>
+                        <label for="">
+                            <input type="radio" name="connection" id="tel" value="по телефону">
+                            По телефону
+                        </label>
+                        <br>
+                        <label for="">
+                            <input type="radio" name="connection" id="none" value="не нужно отвечать">
+                            Не отвечать
+                        </label>
+                        <br>
+                    </fieldset>
+
+                    <div class="form-div">
+                        <label for="theme"> Укажите тему вопроса</label>
+                        <br>
+                        <select name="" id="theme">
+                            <option value="work">
+                                Работа
+                            </option>
+                             <option value="coop">
+                                Сотрудничество
+                            </option>
+                            <option value="personal">
+                                Личное
+                            </option>
+                        </select>
+                    </div>
+
+                    <fieldset class="form-div">
+                        <legend>Заключительное:</legend>
+                        <label for="checkbox1">
+                            <input type="checkbox" name="Question" id="checkbox1" value="может так">
+                            Первое
+                        </label>
+                        <label for="checkbox2">
+                            <input type="checkbox" name="Question" id="checkbox2" value="или не так">
+                            Второе
+                        </label>
+                        <label for="checkbox3">
+                            <input type="checkbox" name="Question" id="checkbox3" value="иначе">
+                            Третье
+                        </label>
+                    </fieldset>
+
+                    <div class="form-div flex-row" id="name1">
+                        <label for="name">Ваше имя:</label>
+                        <input type="text" name="name" id="name" placeholder="Введите ФИО">
+                    </div>
+
+                    <div class="form-div flex-row" id="email1">
+                        <label for="adress">E-mail:</label>
+                        <input type="email" name="adress" id="adress" placeholder="Введите e-mail">
+                    </div>
+
+                    <div class="form-div flex-row" id="tel1">
+                        <label for="number">Телефон:</label>
+                        <input type="tel" name="number" id="number" placeholder="Введите телефон">
+                    </div>
+
+                    <div class="form-div">
+                        <div>Ваш вопрос:</div> 
+                        <div>
+                            <textarea cols="30">
+                            </textarea>
+                        </div>
+                    </div>
+
+                    <div class="align-center">
+                        <input onclick="return checkForm(form1)" type="button" value="отправить вопрос">
+                    </div>
+
+                    <div id="error" style="color: red;"></div>
+                    <div id="output" style="color: rgb(0, 255, 21);"></div>
+                </form>
+            </section>
+
+            <div>
+
+                <section>
+                    <div class="container2">
+                        <div class="zoom">
+                            <div class="zoomed-image"></div>
+                            <div class="sidebar">
+                                <img src="../images/2.jpg" class="small-preview">
+                                <img src="../images/3.jpg" class="small-preview">
+                                <img src="../images/4.jpg" class="small-preview">
+                                <img src="../images/5.jpg" class="small-preview">
+                                <img src="../images/6.jpg" class="small-preview">
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        (function (){
+                            class Zoom{
+                                constructor(element){          
+                                    this.container = element;
+                                    this.firstSmallImage = this.container.querySelector('.small-preview');
+                                    this.zoomedImage = this.container.querySelector('.zoomed-image');
+                                    this.init();
+                                    this.changePhoto();
+                                    this.mouseEnter();
+                                    this.mouseMove();
+                                    this.mouseLeave();
+                                }
+
+                                init() {
+                                    if (!this.container) {
+                                        console.error('Нет элемента container');
+                                    }
+                                    if (!this.zoomedImage) {
+                                        console.error('Нет элемента zoomedImage');
+                                    }
+                                    if (!this.firstSmallImage) {
+                                        console.error('Нет элемента firstSmallImage');
+                                    }   
+                                    else {
+                                        this.zoomedImage.style.backgroundImage = 'url(' + this.firstSmallImage.src + ')';
+                                    }
+                                }
+
+                                changePhoto() {
+                                    this.container.addEventListener('click', (e) => {
+                                        const elem = e.target;
+                                        if (elem.classList.contains('small-preview')) {
+                                            this.zoomedImage.style.backgroundImage = 'url(' + elem.src + ')';
+                                        }
+                                    })
+                                }
+
+                                mouseEnter() {
+                                    this.zoomedImage.addEventListener('mouseover', () => {
+                                        this.zoomedImage.style.backgroundSize = '250%';
+                                    })
+                                }
+
+                                mouseMove() {
+                                    this.zoomedImage.addEventListener('mousemove', (e) => {
+                                        let dimension = this.zoomedImage.getBoundingClientRect(),
+                                        x = e.clientX - dimension.left,
+                                        y = e.clientY - dimension.top,
+                                        xPercent = Math.round(100 / (dimension.width / x)),
+                                        yPercent = Math.round(100 / (dimension.height / y));
+                                        this.zoomedImage.style.backgroundPosition = xPercent + '%' + yPercent + '%';
+                                    })
+                                }
+                    
+
+                                mouseLeave() {
+                                    this.zoomedImage.addEventListener('mouseleave', () => {
+                                        this.zoomedImage.style.backgroundSize = 'cover';
+                                        this.zoomedImage.style.backgroundPosition = 'center';
+                                    })
+                                }
+                            }
+
+                            let zoom1 = document.querySelectorAll('.zoom'); 
+                            // console.log(zoom1);
+                            zoom1.forEach(item =>{
+                                new Zoom(item);
+                            })
+                        })();
+                    </script>
+                </section>
+                
+                <section>
+                    <div class="container">
+                        <div class="slider">
+                            <div class="sliderLine">
+                                <img src="../images/1.jpg" alt="логотип" class="mini">
+                                <img src="../images/2.jpg" alt="логотип" class="mini">
+                                <img src="../images/3.jpg" alt="логотип" class="mini">
+                                <img src="../images/4.jpg" alt="логотип" class="mini">
+                                <img src="../images/5.jpg" alt="логотип" class="mini">
+                            </div>
+                        </div>
+                        <button class="sliderPrev">
+                            Previous
+                        </button>
+                        <button class="sliderNext">
+                            Next
+                        </button>
+                    </div>
+                    <script>
+                        let offset = 0;
+                        const sliderLine = document.querySelector('.sliderLine');
+                        document.querySelector('.sliderNext').addEventListener('click', function(){
+                            offset += 256;
+                            if (offset > 1024) {
+                                offset = 0;
+                            }
+                            sliderLine.style.left = - offset + 'px';
+                        });
+                        document.querySelector('.sliderPrev').addEventListener('click', function(){
+                            offset -= 256;
+                            if (offset < 0) {
+                                offset = 1024;
+                            }
+                            sliderLine.style.left = - offset + 'px';
+                        });
+                    </script>
+                </section>
+                <section>
+                    <div class="block"> </div>
+                    <script>
+                        var arr = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg'];
+                        let block = document.querySelector('.block');
+                        let i = 0;
+                        block.onclick = change;
+                        function change(){
+                            block.style.backgroundImage = 'url(../Images/' + arr[i] + ')';
+                            i++;
+                            if (i == arr.length) {
+                                i = 0;
+                            }
+                        }
+                    </script>
+                </section>
+            
+            </div>
+
+            <section>
+                <div class="chart">
+                    <h1 class="chart__title">Количество фильмов по жанрам</h1>
+                    <form class="chart__data" action="#" method="POST">
+                        <div class="chart__input-group">
+                            <label class="chart__label" for="Хорроры">Хорроры</label>
+                            <input class="chart__input input-field" type="number" name="Хорроры" id="Хорроры" min="0" max="40" required>
+                        </div>
+                        <div class="chart__input-group">
+                            <label class="chart__label" for="Комедии">Комедии</label>
+                            <input class="chart__input input-field" type="number" name="Комедии" id="Комедии" min="0" max="40" required>
+                        </div>
+                        <div class="chart__input-group">
+                            <label class="chart__label" for="Триллеры">Триллеры</label>
+                            <input class="chart__input input-field" type="number" name="Триллеры" id="Триллеры" min="0" max="40" required>
+                        </div>
+                        <input class="chart__submit-button input-field" type="submit" value="Показать график">
+                    </form>
+                    <div class="chart__canvas-wrapper">
+                        <canvas id="canvas" width="400" height="250">Браузер не поддерживает Canvas</canvas>
+                    </div>
+                </div>
+                <script>
+                    const maxNum = 40;
+                    const COLORS = [`#800000`,`#FBF315`,`#004FE3`];
+                    const BarSize = { MAX_HEIGHT: 190, WIDTH: 40 };
+                    const BarCoordinate = { INITIAL_X: 80, INITIAL_Y: 220 };
+                    const Font = { SIZE: `18px`, FAMILY: `Tahoma`};
+                    const LabelCoordinate = { INITIAL_X: 30, INITIAL_Y: 70};
+                    const Gap = { HORIZONTAL: 80, VERTICAL: 30};
+                    const formElement1 = document.querySelector(`.chart__data`);
+                    const inputElements = formElement1.querySelectorAll(`.chart__input`);
+                    const getData = (inputElements) => { 
+                        return Array.from(inputElements).map((input, index) => ({ 
+                            name: input.name, value: input.value, color: COLORS[index]
+                        }));
+                    };
+                    const items = getData(inputElements);
+                    const canvas = document.querySelector(`#canvas`);
+                    const ctx = canvas.getContext(`2d`); 
+                    const renderChart = (items) => {
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        let currentBarX = BarCoordinate.INITIAL_X;
+                        let currentLabelY = LabelCoordinate.INITIAL_Y; 
+                        const gapBetweenBars = BarSize.WIDTH + Gap.HORIZONTAL;
+                        ctx.strokeStyle = "lime";
+                        ctx.lineWidth = 2.0;
+                        ctx.beginPath();
+                        ctx.moveTo(35, 20);
+                        ctx.lineTo(35, 220);
+                        ctx.stroke();
+                        ctx.fillStyle = "lime"
+                        ctx.font = `10px ${Font.FAMILY}`;
+                        for(i = 0; i < 5; i++){
+                            ctx.fillText(i * 10 + " ", 17, 220 - i * (190 / 4) + 2);
+                            ctx.lineWidth = 2.0;
+                            ctx.beginPath();
+                            ctx.moveTo(33, 220 - i * (190 / 4));
+                            ctx.lineTo(37, 220 - i * (190 / 4));
+                            ctx.stroke();
+                        }
+                        for (const item of items) {
+                            const barHeight = (item.value * BarSize.MAX_HEIGHT) / maxNum;
+                            ctx.fillStyle = item.color;
+                            ctx.font = `${Font.SIZE} ${Font.FAMILY}`;
+                            ctx.save();
+                            ctx.translate(0, canvas.height);
+                            ctx.rotate(-Math.PI/2);
+                            ctx.fillText(item.name.toUpperCase(), LabelCoordinate.INITIAL_X, currentLabelY);
+                            ctx.restore();
+                            ctx.fillRect(currentBarX, BarCoordinate.INITIAL_Y, BarSize.WIDTH, -barHeight);
+                            currentBarX += gapBetweenBars;
+                            currentLabelY += gapBetweenBars;
+                        }
+                    };
+                    const formElement = document.querySelector(`.chart__data`);
+                    formElement.addEventListener(`submit`, (evt) => {
+                        evt.preventDefault();
+                        renderChart(getData(inputElements));
+                        formElement.reset();
+                    });
+                </script>
+            </section>
+
+            <section>
+                <div class="items">
+                    <h1>Новая задачка</h1>
+                    <form class="form">
+                        <input id="item" type="text" placeholder="Введите задачу" required>
+                    </form>
+                    <h2>Задачка</h2>
+                    <ul class="ul"></ul>
+                    <button id="button">Очистить</button>
+                </div>
+            </section>
+
+            <div class="countdown-wrapper">
+                <h1 class="title">до Нового Года осталось:</h1>
+                <div id="year" class="year"></div>
+                <div class="countdown" id=countdown>
+                    <div class="time">
+                        <h2 id="days">00</h2>
+                        <small>дней</small>
+                    </div>
+                    <div class="time">
+                        <h2 id="hours">00</h2>
+                        <small>часов</small>
+                    </div>
+                    <div class="time">
+                        <h2 id="minutes">00</h2>
+                        <small>минут</small>
+                    </div>
+                    <div class="time">
+                        <h2 id="seconds">00</h2>
+                        <small>секунд</small>
+                    </div>
+                </div>
+            </div>
+
+            <script src="../js/main.js"></script>
+
+            <script>
+                const form = document.querySelector(".form");
+                const ul = document.querySelector(".ul");
+                const button = document.getElementById("button");
+                const input = document.getElementById("item");
+                let itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : [];
+        
+                localStorage.setItem('items', JSON.stringify(itemsArray));
+                const data = JSON.parse(localStorage.getItem('items'));
+        
+                const liMarker = (text) => {
+                    const li = document.createElement('li');
+                    li.textContent = text;
+                    ul.appendChild(li);
+                }    
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    liMarker(input.value);
+                    itemsArray.push(input.value);
+                    localStorage.setItem('items', JSON.stringify(itemsArray));
+                    input.value = "";
+                });
+                data.forEach(item => {
+                    liMarker(item);
+                });
+        
+                button.addEventListener('click', function() {
+                    localStorage.removeItem('items');
+                    while(ul.firstChild){
+                        ul.removeChild(ul.firstChild);
+                    };
+                    itemsArray = [];
+                })
+            </script>
+        </div>
+
+
+    </main>
+    <footer class="footer">
+        <div>
+            &#10084;
+            &#9883;
+        </div>
+        <div class="created-by">Created by <em>erv</em>, Copyright © 2022</div>
+    </footer>
+
+    <script>
+        document.getElementById('connection1').addEventListener("click", hiddenCloseclick);
+        function hiddenCloseclick() {
+        let x = document.getElementById('email1');
+        let y = document.getElementById('tel1');
+            
+        if (document.getElementById("post").checked) {
+             x.style.visibility = "visible";
+        } else {
+             x.style.visibility = "hidden";
+        }
+          
+        if (document.getElementById("tel").checked) {
+             y.style.visibility = "visible";
+        } else {
+             y.style.visibility= "hidden"};
+        }
+    </script>
+
+</body>
+</html>
